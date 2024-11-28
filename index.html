@@ -12,6 +12,65 @@
 
     }
   </style>
+  <style>
+    /* Стили для контейнера */
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+    }
+
+    /* Скелетон */
+    .skeleton {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      color: #999;
+    }
+
+    /* Анимация скелетона */
+    @keyframes skeleton-loading {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    /* Скрываем iframe по умолчанию */
+    iframe {
+      display: none;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Получаем все элементы iframe
+      var iframes = document.querySelectorAll('.iframe-container');
+
+      // Перебираем каждый iframe
+      iframes.forEach(function (iframe) {
+        // Добавляем обработчик события load
+        iframe.querySelector('iframe').addEventListener('load', function (event) {
+          // Показываем iframe
+          event.target.style.display = 'block';
+
+          // Удаляем скелетон
+          iframe.querySelector('.skeleton').remove();
+        });
+      })
+    });
+  </script>
 </head>
 
 <body>
@@ -21,9 +80,29 @@
   <object data="report_Dmitrii_071024.pdf" type="application/pdf" width="400" height="200"
     title="PDF Document"></object> -->
   <p>iframe tag</p>
-  <iframe src="report_Dmitrii_071024.pdf" style="width:100%; height:50vh;" frameborder="0"></iframe>
-  <iframe style="width:100%; height:50vh;" frameborder="0" scrolling="no"
-    src="https://onedrive.live.com/embed?resid=6C685993F809A9F8%212757&authkey=%21AABR6KgqMF_ImYs&em=2&wdAllowInteractivity=False&AllowTyping=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=true&ejss=false"></iframe>
+
+  <div class="iframe-container">
+    <!-- Скелетон -->
+    <div class="skeleton" id="skeleton">
+      Loading file...
+    </div>
+
+    <!-- iframe -->
+    <iframe src="report_Dmitrii_071024.pdf" style="width:100%; height:50vh;" frameborder="0"
+      style="display: 'none';"></iframe>
+  </div>
+  <div class="iframe-container">
+    <!-- Скелетон -->
+    <div class="skeleton" id="skeleton">
+      Loading file...
+    </div>
+
+    <!-- iframe -->
+    <iframe style="width:100%; height:50vh;" frameborder="0" scrolling="no"
+      src="https://onedrive.live.com/embed?resid=6C685993F809A9F8%212757&authkey=%21AABR6KgqMF_ImYs&em=2&wdAllowInteractivity=False&AllowTyping=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True&edesNext=true&ejss=false"
+      style="display: 'none';">
+    </iframe>
+  </div>
   <!-- <a href="report_Dmitrii_071024.pdf" target="_blank" rel="noopener noreferrer">PDF</a> -->
 
   <!-- <embed> Example -->
